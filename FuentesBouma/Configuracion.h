@@ -11,13 +11,15 @@ class Configuracion
 {
 private:
 	//Ruta donde se encuentra la imagen a leer
-	 string ruta_imagen;
+	 string ruta_imagenIn;
+	 string ruta_regionGrowing;
 
 
 public:
 	Configuracion();
 	~Configuracion();
-	string getRuta();
+	string getRutaImgIn();
+	string getRutaImgRegGrow();
 	
 
 };

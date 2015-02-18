@@ -10,7 +10,7 @@ DICOMProperties::DICOMProperties()
 /**
  * @brief Contructor con el parametro de la dirección o path donde se encuentra la imagen DICOM de entrada.
  * @param direccion
- * @return 
+ * @return Objeto de la clase DICOMProperties
  */
 
 DICOMProperties::DICOMProperties(string path)

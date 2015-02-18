@@ -1,3 +1,6 @@
+#ifndef DICOMPROPERTIES_H
+#define DICOMPROPERTIES_H
+
 #include <string>
 #include <vector>
 
@@ -34,3 +37,5 @@ public:
 	
 	
 };
+
+#endif //DICOMPROPERTIES_H

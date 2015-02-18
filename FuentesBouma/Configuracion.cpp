@@ -1,8 +1,9 @@
 #include "Configuracion.h"
+
 /**
-*Constructor:
-*Lee el archivo de configuración y agrega las propiedades al objeto de la clase Configuracion
-*/
+ * @brief Lee el archivo de configuración y agrega las propiedades al objeto de la clase Configuracion
+ * @return Objeto de la clase Configuracion
+ */
 Configuracion::Configuracion()
 {
 	ifstream entrada;
@@ -16,7 +17,7 @@ Configuracion::Configuracion()
 	}
 	else
 	{
-		cout << "Si se leyo" << endl;
+		//cout << "Si se leyo" << endl;
 
 		char cad[200];
 		string cad1;
@@ -36,25 +37,41 @@ Configuracion::Configuracion()
 			if ((string)cad=="DirImgEnt:")
 			{
 				parametro.getline(cad, 200, ' ');//Se lee el valor del parametro
-				this->ruta_imagen = cad;
+				this->ruta_imagenIn = cad;
+				
+			}else if ((string)cad=="DirImgRegionGrowingOut:") {
+	
+				parametro.getline(cad, 200, ' ');//Se lee el valor del parametro
+				this->ruta_regionGrowing=cad;
 			}
 		} while (!entrada.eof());
 	}
 }
 
 /**
-*Destructor de la clase Configuracion
-*/
+ * @brief Destructor de la clase Configuracion
+ * @return 
+ */
 Configuracion::~Configuracion()
 {
 	
 }
 
 /**
-*Getter:
-*Retorna la direccion o path donde se encuentra la imagen de entrada.
-*/
-string Configuracion:: getRuta()
+ * @brief Retorna la dirección o path donde se encuentra la imagen de entrada.
+ * @return Ruta donde esta la imagen de entrada.
+ */
+string Configuracion:: getRutaImgIn()
 {
-	return this->ruta_imagen;
+	return this->ruta_imagenIn;
+}
+
+
+/**
+ * @brief Retorna la direccion o path donde se encuentra la imagen que ya fue pasada por el crecimiento de regiones.
+ * @return Ruta donde esta la imagen de regionGrowing.
+ */
+string Configuracion:: getRutaImgRegGrow()
+{
+	return this->ruta_regionGrowing;
 }
