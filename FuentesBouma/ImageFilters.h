@@ -27,6 +27,9 @@ typedef itk::ImageSeriesReader< ImageType > ReaderType;
 typedef unsigned char   PixelBinaryType;
 typedef itk::Image<PixelBinaryType, DimensionIF> ImageBinaryType;
 
+//Definicion de imagen para Crecimiento de regiones (WARNING del compilador)
+typedef float PixelGrowingType;
+typedef itk::Image<PixelGrowingType, DimensionIF> ImageGrowingType;
 
 using namespace std;
 

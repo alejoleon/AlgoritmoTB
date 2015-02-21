@@ -66,15 +66,15 @@ void ImageFilters:: filtroMediana(ImageType::Pointer image, int radius,ImageType
  */
 void ImageFilters::regionGrowing(ReaderType::Pointer reader,ImageBinaryType::Pointer &binLungs, float seeds[]) {
 
-	typedef itk::CastImageFilter< ImageType, ImageType > CastingFilterType;	
+	typedef itk::CastImageFilter< ImageType, ImageBinaryType > CastingFilterType;	
 	CastingFilterType::Pointer caster = CastingFilterType::New();
 	CastingFilterType::Pointer caster2 = CastingFilterType::New();
 	
-	typedef itk::CurvatureFlowImageFilter< ImageType, ImageType > CurvatureFlowImageFilterType;
+	typedef itk::CurvatureFlowImageFilter< ImageType, ImageGrowingType > CurvatureFlowImageFilterType;
 	CurvatureFlowImageFilterType::Pointer smoothing = CurvatureFlowImageFilterType::New();
 	CurvatureFlowImageFilterType::Pointer smoothing2 = CurvatureFlowImageFilterType::New();
 	
-	typedef itk::ConnectedThresholdImageFilter< ImageType,ImageType > ConnectedFilterType;
+	typedef itk::ConnectedThresholdImageFilter< ImageGrowingType,ImageType > ConnectedFilterType;
 	ConnectedFilterType::Pointer connectedThreshold = ConnectedFilterType::New();
 	ConnectedFilterType::Pointer connectedThreshold2 = ConnectedFilterType::New();
 	
@@ -117,16 +117,9 @@ void ImageFilters::regionGrowing(ReaderType::Pointer reader,ImageBinaryType::Poi
 	connectedThreshold->SetSeed( leftLungSeed );
 	connectedThreshold2->SetSeed( rightLungSeed );
 
-	//Filtro de casteo de una imagen short a una char
-	typedef itk::CastImageFilter< ImageType, ImageBinaryType > CastFilterType;
-	CastFilterType::Pointer castFilter = CastFilterType::New();
-	CastFilterType::Pointer castFilter2 = CastFilterType::New();
-	castFilter->SetInput(connectedThreshold->GetOutput());
-	castFilter2->SetInput(connectedThreshold2->GetOutput());
-
 	//Operacion or
 	BinaryFilters* orFunc=new BinaryFilters();
-	orFunc->orFunction(castFilter->GetOutput(),castFilter2->GetOutput(),binLungs);
+	orFunc->orFunction(caster->GetOutput(),caster2->GetOutput(),binLungs);
 }
 
 /**
@@ -139,15 +132,15 @@ void ImageFilters::regionGrowing(ReaderType::Pointer reader,ImageBinaryType::Poi
  */
 void ImageFilters::regionGrowing(ImageType::Pointer image,ImageBinaryType::Pointer &binLungs, float seeds[]) {
 
-	typedef itk::CastImageFilter< ImageType, ImageType > CastingFilterType;	
+	typedef itk::CastImageFilter< ImageType, ImageBinaryType > CastingFilterType;	
 	CastingFilterType::Pointer caster = CastingFilterType::New();
 	CastingFilterType::Pointer caster2 = CastingFilterType::New();
 	
-	typedef itk::CurvatureFlowImageFilter< ImageType, ImageType > CurvatureFlowImageFilterType;
+	typedef itk::CurvatureFlowImageFilter< ImageType, ImageGrowingType > CurvatureFlowImageFilterType;
 	CurvatureFlowImageFilterType::Pointer smoothing = CurvatureFlowImageFilterType::New();
 	CurvatureFlowImageFilterType::Pointer smoothing2 = CurvatureFlowImageFilterType::New();
 	
-	typedef itk::ConnectedThresholdImageFilter< ImageType,ImageType > ConnectedFilterType;
+	typedef itk::ConnectedThresholdImageFilter< ImageGrowingType,ImageType > ConnectedFilterType;
 	ConnectedFilterType::Pointer connectedThreshold = ConnectedFilterType::New();
 	ConnectedFilterType::Pointer connectedThreshold2 = ConnectedFilterType::New();
 	
@@ -190,14 +183,7 @@ void ImageFilters::regionGrowing(ImageType::Pointer image,ImageBinaryType::Point
 	connectedThreshold->SetSeed( leftLungSeed );
 	connectedThreshold2->SetSeed( rightLungSeed );
 
-	//Filtro de casteo de una imagen short a una char
-	typedef itk::CastImageFilter< ImageType, ImageBinaryType > CastFilterType;
-	CastFilterType::Pointer castFilter = CastFilterType::New();
-	CastFilterType::Pointer castFilter2 = CastFilterType::New();
-	castFilter->SetInput(connectedThreshold->GetOutput());
-	castFilter2->SetInput(connectedThreshold2->GetOutput());
-
 	//Operacion or
 	BinaryFilters* orFunc=new BinaryFilters();
-	orFunc->orFunction(castFilter->GetOutput(),castFilter2->GetOutput(),binLungs);
+	orFunc->orFunction(caster->GetOutput(),caster2->GetOutput(),binLungs);
 }

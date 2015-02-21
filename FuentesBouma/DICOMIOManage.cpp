@@ -179,7 +179,7 @@ void DICOMIOManage:: writeDicomFile (ImageType::Pointer image,string outputPath)
 	
 	const char * outputDirectory = outputPath.c_str();	
 	itksys::SystemTools::MakeDirectory( outputDirectory);
- 
+	
 	// Generate the file names
 	OutputNamesGeneratorType::Pointer outputNames = OutputNamesGeneratorType::New();
 	string seriesFormat(outputDirectory);
@@ -244,12 +244,11 @@ void DICOMIOManage:: writeDicomFile (ImageBinaryType::Pointer image,string outpu
  
 	SeriesWriterType::Pointer seriesWriter = SeriesWriterType::New();
 	//seriesWriter->SetInput( image->GetOutput() );
-	
 	seriesWriter->SetInput(image);
 	ImageIOType::Pointer gdcmIO = ImageIOType::New();
     seriesWriter->SetImageIO( gdcmIO );
     seriesWriter->SetFileNames( outputNames->GetFileNames() );
-    seriesWriter->SetMetaDataDictionaryArray( imgRegionGrow->GetMetaDataDictionaryArray() );
+    seriesWriter->SetMetaDataDictionaryArray( reader->GetMetaDataDictionaryArray() );
   try
     {		
 		seriesWriter->Update();

@@ -34,16 +34,40 @@ Configuracion::Configuracion()
 
 			parametro.getline(cad, 200, ' '); //Se lee subtitulo
 			
-			if ((string)cad=="DirImgEnt:")
+			if ((string)cad=="DirImgIn:")
 			{
 				parametro.getline(cad, 200, ' ');//Se lee el valor del parametro
 				this->ruta_imagenIn = cad;
 				
-			}else if ((string)cad=="DirImgRegionGrowingOut:") {
+			}else if ((string)cad=="DirImgMedianOut:") {
 	
 				parametro.getline(cad, 200, ' ');//Se lee el valor del parametro
+				this->ruta_MedianFilter=cad;
+				
+			}else if ((string)cad=="DirImgRegGrowOut:") {
+				
+				parametro.getline(cad, 200, ' ');//Se lee el valor del parametro
 				this->ruta_regionGrowing=cad;
+				
+			}else if ((string)cad=="DirImgRegGrowClosingOut:") {
+				
+				parametro.getline(cad, 200, ' ');//Se lee el valor del parametro
+				this->ruta_regGrowClosing=cad;
+				
+			}else if ((string)cad=="DirImgMediastinumOut:") {
+				
+				parametro.getline(cad, 200, ' ');//Se lee el valor del parametro
+				this->ruta_mediastinum=cad;
+				
+			}else if ((string)cad=="DirImgInterestRegOut:") {
+				
+				parametro.getline(cad, 200, ' ');//Se lee el valor del parametro
+				this->ruta_interestRegion=cad;
+				
 			}
+			
+			
+			
 		} while (!entrada.eof());
 	}
 }
@@ -66,6 +90,15 @@ string Configuracion:: getRutaImgIn()
 	return this->ruta_imagenIn;
 }
 
+/**
+ * @brief Retorna la dirección o path donde se encuentra la imagen con filtro de mediana (salida).
+ * @return Ruta donde esta la imagen de salida.
+ */
+string Configuracion:: getRutaMedian()
+{
+	return this->ruta_MedianFilter;
+}
+
 
 /**
  * @brief Retorna la direccion o path donde se encuentra la imagen que ya fue pasada por el crecimiento de regiones.
@@ -74,4 +107,31 @@ string Configuracion:: getRutaImgIn()
 string Configuracion:: getRutaImgRegGrow()
 {
 	return this->ruta_regionGrowing;
+}
+
+/**
+ * @brief Retorna la direccion o path donde se encuentra la imagen que ya fue pasada por el crecimiento de regiones y un closing.
+ * @return Ruta donde esta la imagen de regionGrowing luego de haberse hecho un Closing.
+ */
+string Configuracion:: getRutaImgRegGrowClosing()
+{
+	return this->ruta_regGrowClosing;
+}
+
+/**
+ * @brief Retorna la direccion o path donde se encuentra la imagen correspondiente al mediastino.
+ * @return Ruta donde esta la imagen del mediastino.
+ */
+string Configuracion:: getRutaMediastinum()
+{
+	return this->ruta_mediastinum;
+}
+
+/**
+ * @brief Retorna la direccion o path donde se encuentra la imagen correspondiente a la region de interes.
+ * @return Ruta donde esta la imagen de la region de interes.
+ */
+string Configuracion:: getRutaInterestRegion()
+{
+	return this->ruta_interestRegion;
 }
